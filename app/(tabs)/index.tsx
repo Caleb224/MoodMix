@@ -1,31 +1,51 @@
-import { StyleSheet } from 'react-native';
+import { SafeAreaView, StyleSheet, View } from "react-native";
+import { Text } from "@/components/Themed";
+import Container from "@/components/Container";
 
-import EditScreenInfo from '@/components/EditScreenInfo';
-import { Text, View } from '@/components/Themed';
-
-export default function TabOneScreen() {
+function HomeScreenHeader() {
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Tab One</Text>
-      <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-      <EditScreenInfo path="app/(tabs)/index.tsx" />
-    </View>
+    <Container>
+      <View style={headerStyles.container}>
+        <Text style={headerStyles.welcometext}>Welcome to MoodMix</Text>
+      </View>
+      <View>
+        <Text style={headerStyles.moodtext}>Feeling Happy?</Text>
+      </View>
+    </Container>
+  );
+}
+
+const headerStyles = StyleSheet.create({
+  container: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    width: "100%",
+  },
+  welcometext: {
+    fontWeight: "800",
+  },
+  moodtext: {
+    fontWeight: "400",
+    fontSize: 30,
+  },
+});
+
+export default function HomeScreen() {
+  return (
+    <SafeAreaView style={styles.container}>
+      <View style={styles.container}>
+        <HomeScreenHeader />
+      </View>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: '80%',
+    alignItems: "center",
+    backgroundColor: "#27005D",
+    padding: 20,
   },
 });

@@ -1,59 +1,104 @@
-import React from 'react';
-import FontAwesome from '@expo/vector-icons/FontAwesome';
-import { Link, Tabs } from 'expo-router';
-import { Pressable } from 'react-native';
+import React from "react";
+import FontAwesome from "@expo/vector-icons/FontAwesome";
+import { AnimatedTabBarNavigator } from "react-native-animated-nav-tab-bar";
 
-import Colors from '@/constants/Colors';
-import { useColorScheme } from '@/components/useColorScheme';
-import { useClientOnlyValue } from '@/components/useClientOnlyValue';
+import HomeScreen from ".";
+import ProfileScreen from "./two";
 
 // You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
 function TabBarIcon(props: {
-  name: React.ComponentProps<typeof FontAwesome>['name'];
-  color: string;
+  name: React.ComponentProps<typeof FontAwesome>["name"];
+  color?: string;
 }) {
   return <FontAwesome size={28} style={{ marginBottom: -3 }} {...props} />;
 }
 
-export default function TabLayout() {
-  const colorScheme = useColorScheme();
+/*  Third Party Tab Navigation
+ *   https://github.com/torgeadelin/react-native-animated-nav-tab-bar?tab=readme-ov-file
+ */
+const Tabs = AnimatedTabBarNavigator();
 
+export default function TabLayout() {
   return (
-    <Tabs
-      screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
-        // Disable the static render of the header on web
-        // to prevent a hydration error in React Navigation v6.
-        headerShown: useClientOnlyValue(false, true),
-      }}>
+    <Tabs.Navigator
+      appearance={{
+        floating: true,
+        tabBarBackground: "rgba(228, 241, 255, 0.5)",
+        activeTabBackgrounds: "#AED2FF",
+        shadow: true,
+        whenActiveShow: "icon-only",
+        whenInactiveShow: "icon-only",
+        dotSize: "small",
+      }}
+      tabBarOptions={{
+        activeTintColor: "#FFF",
+        inactiveTintColor: "#FFF",
+        tabStyle: {
+          position: "absolute",
+          bottom: 20,
+        },
+      }}
+    >
       <Tabs.Screen
-        name="index"
+        name="Home2"
+        component={HomeScreen}
         options={{
-          title: 'Tab One',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
-          headerRight: () => (
-            <Link href="/modal" asChild>
-              <Pressable>
-                {({ pressed }) => (
-                  <FontAwesome
-                    name="info-circle"
-                    size={25}
-                    color={Colors[colorScheme ?? 'light'].text}
-                    style={{ marginRight: 15, opacity: pressed ? 0.5 : 1 }}
-                  />
-                )}
-              </Pressable>
-            </Link>
+          headerShown: false,
+          tabBarIcon: ({ focused, color, size }: any) => (
+            <FontAwesome
+              name="home"
+              size={size ? size : 24}
+              color={focused ? color : "#222222"}
+              focused={focused}
+            />
           ),
         }}
       />
       <Tabs.Screen
-        name="two"
+        name="Home3"
+        component={HomeScreen}
         options={{
-          title: 'Tab Two',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          headerShown: false,
+          tabBarIcon: ({ focused, color, size }: any) => (
+            <FontAwesome
+              name="home"
+              size={size ? size : 24}
+              color={focused ? color : "#222222"}
+              focused={focused}
+            />
+          ),
         }}
       />
-    </Tabs>
+      <Tabs.Screen
+        name="Home"
+        component={HomeScreen}
+        options={{
+          headerShown: false,
+          tabBarIcon: ({ focused, color, size }: any) => (
+            <FontAwesome
+              name="home"
+              size={size ? size : 24}
+              color={focused ? color : "#222222"}
+              focused={focused}
+            />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="Profile"
+        component={ProfileScreen}
+        options={{
+          headerShown: false,
+          tabBarIcon: ({ focused, color, size }: any) => (
+            <FontAwesome
+              name="user-circle"
+              size={size ? size : 24}
+              color={focused ? color : "#222222"}
+              focused={focused}
+            />
+          ),
+        }}
+      />
+    </Tabs.Navigator>
   );
 }
