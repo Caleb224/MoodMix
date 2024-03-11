@@ -1,9 +1,12 @@
 import React from "react";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { AnimatedTabBarNavigator } from "react-native-animated-nav-tab-bar";
+import { useEffect, useState } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import HomeScreen from ".";
 import ProfileScreen from "./two";
+import InitialScreen from "@/components/Screens/InitialScreen";
 
 // You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
 function TabBarIcon(props: {
@@ -19,6 +22,28 @@ function TabBarIcon(props: {
 const Tabs = AnimatedTabBarNavigator();
 
 export default function TabLayout() {
+  const [appOpenedBefore, setAppOpenedBefore] = useState(false);
+
+  useEffect(() => {
+    const checkIfOpenedBefore = async () => {
+      try {
+        const value = await AsyncStorage.getItem("appOpenedBefore");
+        if (value !== null) {
+          setAppOpenedBefore(true);
+          console.log("Found:", value);
+        }
+      } catch (error) {
+        console.error("Unable to retrieve data from async storage:", error);
+      }
+    };
+
+    checkIfOpenedBefore();
+  }, []);
+
+  if (!appOpenedBefore) {
+    return <InitialScreen onComplete={() => setAppOpenedBefore(true)} />;
+  }
+
   return (
     <Tabs.Navigator
       appearance={{
