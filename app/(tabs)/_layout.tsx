@@ -86,7 +86,7 @@ export default function TabLayout() {
           headerShown: false,
           tabBarIcon: ({ focused, color, size }: any) => (
             <FontAwesome
-              name="home"
+              name="list-ul"
               size={size ? size : 24}
               color={focused ? color : "#222222"}
               focused={focused}
@@ -101,7 +101,7 @@ export default function TabLayout() {
           headerShown: false,
           tabBarIcon: ({ focused, color, size }: any) => (
             <FontAwesome
-              name="home"
+              name="search"
               size={size ? size : 24}
               color={focused ? color : "#222222"}
               focused={focused}
