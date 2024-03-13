@@ -5,8 +5,10 @@ import { useEffect, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import HomeScreen from ".";
-import ProfileScreen from "./two";
 import InitialScreen from "@/components/Screens/InitialScreen";
+import FavouritesScreen from "./favourites";
+import SearchScreen from "./search";
+import ProfileScreen from "./profile";
 
 // You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
 function TabBarIcon(props: {
@@ -48,8 +50,8 @@ export default function TabLayout() {
     <Tabs.Navigator
       appearance={{
         floating: true,
-        tabBarBackground: "rgba(228, 241, 255, 0.5)",
-        activeTabBackgrounds: "#AED2FF",
+        tabBarBackground: "#FFCAD4",
+        activeTabBackgrounds: "#FF407D",
         shadow: true,
         whenActiveShow: "icon-only",
         whenInactiveShow: "icon-only",
@@ -65,7 +67,7 @@ export default function TabLayout() {
       }}
     >
       <Tabs.Screen
-        name="Home2"
+        name="Home"
         component={HomeScreen}
         options={{
           headerShown: false,
@@ -80,13 +82,13 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="Home3"
-        component={HomeScreen}
+        name="Favourites"
+        component={FavouritesScreen}
         options={{
           headerShown: false,
           tabBarIcon: ({ focused, color, size }: any) => (
             <FontAwesome
-              name="list-ul"
+              name="heart"
               size={size ? size : 24}
               color={focused ? color : "#222222"}
               focused={focused}
@@ -95,8 +97,8 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="Home"
-        component={HomeScreen}
+        name="Search"
+        component={SearchScreen}
         options={{
           headerShown: false,
           tabBarIcon: ({ focused, color, size }: any) => (
