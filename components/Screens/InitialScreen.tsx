@@ -25,10 +25,10 @@ const InitialScreen = ({ onComplete }: WelcomeProps) => {
       textContent: "The platform that empowers you to tailor your tune",
       image: require("../../assets/images/MoodMix_Welcome.jpeg"),
       buttons: [
-        // <Pressable key="next" onPress={goNextSlide} style={styles.buttonStyles}>
-        //   <Text style={styles.buttonText}>Next</Text>
-        // </Pressable>,
-        <SpotifyAuth/>
+        <Pressable key="next" onPress={goNextSlide} style={styles.buttonStyles}>
+          <Text style={styles.buttonText}>Next</Text>
+        </Pressable>,
+        // <SpotifyAuth/>
       ],
     },
     {
