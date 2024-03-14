@@ -5,8 +5,10 @@ import { useEffect, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import HomeScreen from ".";
-import ProfileScreen from "./two";
 import InitialScreen from "@/components/Screens/InitialScreen";
+import FavouritesScreen from "./favourites";
+import SearchScreen from "./search";
+import ProfileScreen from "./profile";
 
 // You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
 function TabBarIcon(props: {
@@ -48,8 +50,8 @@ export default function TabLayout() {
     <Tabs.Navigator
       appearance={{
         floating: true,
-        tabBarBackground: "rgba(228, 241, 255, 0.5)",
-        activeTabBackgrounds: "#AED2FF",
+        tabBarBackground: "#FFCAD4",
+        activeTabBackgrounds: "#FF407D",
         shadow: true,
         whenActiveShow: "icon-only",
         whenInactiveShow: "icon-only",
@@ -65,36 +67,6 @@ export default function TabLayout() {
       }}
     >
       <Tabs.Screen
-        name="Home2"
-        component={HomeScreen}
-        options={{
-          headerShown: false,
-          tabBarIcon: ({ focused, color, size }: any) => (
-            <FontAwesome
-              name="home"
-              size={size ? size : 24}
-              color={focused ? color : "#222222"}
-              focused={focused}
-            />
-          ),
-        }}
-      />
-      <Tabs.Screen
-        name="Home3"
-        component={HomeScreen}
-        options={{
-          headerShown: false,
-          tabBarIcon: ({ focused, color, size }: any) => (
-            <FontAwesome
-              name="home"
-              size={size ? size : 24}
-              color={focused ? color : "#222222"}
-              focused={focused}
-            />
-          ),
-        }}
-      />
-      <Tabs.Screen
         name="Home"
         component={HomeScreen}
         options={{
@@ -102,6 +74,36 @@ export default function TabLayout() {
           tabBarIcon: ({ focused, color, size }: any) => (
             <FontAwesome
               name="home"
+              size={size ? size : 24}
+              color={focused ? color : "#222222"}
+              focused={focused}
+            />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="Favourites"
+        component={FavouritesScreen}
+        options={{
+          headerShown: false,
+          tabBarIcon: ({ focused, color, size }: any) => (
+            <FontAwesome
+              name="heart"
+              size={size ? size : 24}
+              color={focused ? color : "#222222"}
+              focused={focused}
+            />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="Search"
+        component={SearchScreen}
+        options={{
+          headerShown: false,
+          tabBarIcon: ({ focused, color, size }: any) => (
+            <FontAwesome
+              name="search"
               size={size ? size : 24}
               color={focused ? color : "#222222"}
               focused={focused}

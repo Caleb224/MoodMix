@@ -2,6 +2,7 @@ import { useState } from "react";
 import { View, SafeAreaView, Text, Pressable, Image } from "react-native";
 import { StyleSheet } from "react-native";
 import Slider from "@react-native-community/slider";
+import SpotifyAuth from "../SpotifyAuth";
 
 interface WelcomeProps {
   onComplete: () => void;
@@ -24,9 +25,10 @@ const InitialScreen = ({ onComplete }: WelcomeProps) => {
       textContent: "The platform that empowers you to tailor your tune",
       image: require("../../assets/images/MoodMix_Welcome.jpeg"),
       buttons: [
-        <Pressable onPress={goNextSlide} style={styles.buttonStyles}>
+        <Pressable key="next" onPress={goNextSlide} style={styles.buttonStyles}>
           <Text style={styles.buttonText}>Next</Text>
         </Pressable>,
+        // <SpotifyAuth/>
       ],
     },
     {
@@ -35,10 +37,10 @@ const InitialScreen = ({ onComplete }: WelcomeProps) => {
       textContent:
         "Adjust the sliders above to shape the music you want to listen to",
       buttons: [
-        <Pressable onPress={goBackSlide} style={styles.buttonStyles}>
+        <Pressable key="back" onPress={goBackSlide} style={styles.buttonStyles}>
           <Text style={styles.buttonText}> Back </Text>
         </Pressable>,
-        <Pressable onPress={goNextSlide} style={styles.buttonStyles}>
+        <Pressable key="next"onPress={goNextSlide} style={styles.buttonStyles}>
           <Text style={styles.buttonText}> Next </Text>
         </Pressable>,
       ],
@@ -48,10 +50,10 @@ const InitialScreen = ({ onComplete }: WelcomeProps) => {
       textContent: "Let's get you listening",
       image: require("../../assets/images/MoodMix_End.jpeg"),
       buttons: [
-        <Pressable onPress={goBackSlide} style={styles.buttonStyles}>
+        <Pressable key="back" onPress={goBackSlide} style={styles.buttonStyles}>
           <Text style={styles.buttonText}> Back </Text>
         </Pressable>,
-        <Pressable onPress={onComplete} style={styles.buttonStyles}>
+        <Pressable key="done" onPress={onComplete} style={styles.buttonStyles}>
           <Text style={styles.buttonText}> Done </Text>
         </Pressable>,
       ],
