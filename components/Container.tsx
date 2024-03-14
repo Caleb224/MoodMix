@@ -12,8 +12,12 @@ export default function Container({ children }: ContainerProps) {
 const styles = StyleSheet.create({
   wrapper: {
     padding: 10,
-    backgroundColor: "rgba(228, 241, 255, 0.5)",
+    backgroundColor: "#FFCAD4",
     borderRadius: 10,
     minWidth: "100%",
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between'
   },
 });
