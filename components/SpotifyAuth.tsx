@@ -1,7 +1,8 @@
-import { useAuthRequest, makeRedirectUri } from "expo-auth-session";
+import { useAuthRequest } from "expo-auth-session";
 import React from "react";
 import { Button } from 'react-native';
 import ClientTokens from "@/constants/ClientTokens";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const discovery = {
     authorizationEndpoint: 'https://accounts.spotify.com/authorize',
@@ -25,6 +26,7 @@ export default function SpotifyAuth() {
   React.useEffect(() => {
     if (response?.type === 'success') {
       const { code } = response.params;
+      console.log(code);
     }
   }, [response]);
 
