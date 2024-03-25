@@ -55,7 +55,7 @@ function RootLayoutNav() {
         headerStyle: {
           backgroundColor: '#153B44',
         },
-        headerTintColor: '#C6DE41',
+        headerTintColor: '#fff',
         }} />
     </Stack>
   );

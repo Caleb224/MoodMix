@@ -25,8 +25,7 @@ export default function HomeScreen() {
             </MotiPressable>
           </MotiView>
         </Surface>
-        <Text className='text-text text-2xl font-bold'>Welcome back</Text>
-        <MotiText from={{opacity: 0}} animate={{opacity: 1}} transition={{duration: 2000, type: 'timing'}}className='text-text text-xl font-extrabold'>Test</MotiText>
+        <Text className='text-text text-2xl font-bold py-3'>Welcome back</Text>
       </SafeAreaView>
       <StatusBar style='light'/>
     </View>
