@@ -54,9 +54,9 @@ export default function ModalScreen() {
           {emotions.map(emotion => (
             <Pressable
             onPress={() => setSelectedEmotion(emotion)}
-            className='px-4 py-1 rounded-xl mx-2' style={{backgroundColor: emotion === selectedEmotion ? '#2D6E7E' : '#C6DE41'}}
+            className='px-4 py-1 rounded-xl mx-2' style={{backgroundColor: emotion === selectedEmotion ? '#C6DE41' : '#2D6E7E' }}
               key={emotion}>
-                <Text className='font-semibold text-md' style={{color: emotion === selectedEmotion ? "#fff" : "#153B44"}}>{emotion}</Text>
+                <Text className='font-semibold text-md' style={{color: emotion === selectedEmotion ? "#153B44" : "#fff"}}>{emotion}</Text>
             </Pressable>
             )
           )}
