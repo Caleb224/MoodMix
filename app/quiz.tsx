@@ -32,7 +32,7 @@ let emotions = [
 ];
 
 export default function ModalScreen() {
-  const [selectedEmotion, setSelectedEmotion] = useState("");
+  const [selectedEmotion, setSelectedEmotion] = useState("Melancholy");
   const [moodValue, setMoodValue] = useState<number[]>([0.5]);
   const [energyValue, setEnergyValue] = useState<number[]>([0.5]);
   const [tempoValue, setTempoValue] = useState<number[]>([0.5]);
@@ -53,9 +53,10 @@ export default function ModalScreen() {
         <Surface className='flex flex-row flex-wrap items-center justify-center gap-2 my-3 bg-transparent' elevation={2}>
           {emotions.map(emotion => (
             <Pressable
-            className='px-4 bg-primary py-1 rounded-xl mx-2'
+            onPress={() => setSelectedEmotion(emotion)}
+            className='px-4 py-1 rounded-xl mx-2' style={{backgroundColor: emotion === selectedEmotion ? '#2D6E7E' : '#C6DE41'}}
               key={emotion}>
-                <Text className='text-tertiary font-semibold text-md'>{emotion}</Text>
+                <Text className='font-semibold text-md' style={{color: emotion === selectedEmotion ? "#fff" : "#153B44"}}>{emotion}</Text>
             </Pressable>
             )
           )}
