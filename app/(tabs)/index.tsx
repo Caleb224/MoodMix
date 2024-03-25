@@ -18,7 +18,7 @@ export default function HomeScreen() {
               <FontAwesome6 name='user-circle' size={48} color='#C6DE41'/>
             </Pressable>
 
-            <MotiPressable from={{scale: 0.9}} animate={{scale: 1}} transition={{duration: 100, type: 'timing'}} onPress={() => navigate('modal')}>
+            <MotiPressable from={{scale: 0.9}} animate={{scale: 1}} transition={{duration: 100, type: 'timing'}} onPress={() => navigate('quiz')}>
               <View className='bg-primary rounded-xl flex items-center justify-center px-4 h-12'>
                 <Text className="text-secondary font-semibold">Update Mood</Text>
               </View>

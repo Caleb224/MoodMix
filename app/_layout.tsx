@@ -49,7 +49,7 @@ function RootLayoutNav() {
   return (
     <Stack>
       <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-      <Stack.Screen name="modal" options={{ 
+      <Stack.Screen name="quiz" options={{ 
         headerTitle:'Update Mood', 
         presentation: 'modal',
         headerStyle: {
