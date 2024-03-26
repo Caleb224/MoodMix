@@ -49,6 +49,7 @@ export async function getMoodTracks(accessToken: string, mood: string): Promise<
     const recommendationsUrl = 'https://api.spotify.com/v1/recommendations?' + new URLSearchParams({
         'seed_genres': genres.join(','),
         'limit': "15",
+        'target_tempo': tempo.toString(),
         'target_energy:': energy.toString(),
         'target_valence': mood.toString()
     });
@@ -114,10 +115,11 @@ export async function getTrackInfo(accessToken: string, trackId: string) {
 
 
 // example usage
-// getToken().then(response => {
-//     getRecommendedTracks(response.access_token, "awe",0.2,0.3,0.9, ).then((tracks) => {
-//     })
-// });
+getToken().then(response => {
+    getRecommendedTracks(response.access_token, "awe",0.2,0.3,0.9, ).then((tracks) => {
+        console.log(tracks)
+    })
+});
 
 
 
