@@ -21,37 +21,40 @@ export const FavouritePlaylistsProvider = ({ children }: { children: React.React
     const getFavouritesFromDB = async () => {
       try {
         let favouritesQuery = await AsyncStorage.getItem("favourites");
-        if (!favouritesQuery) {
-          throw Error("Couldn't retrieve favourites")
-        } 
-        setFavouritePlaylists(JSON.parse(favouritesQuery));
+        if (favouritesQuery !== null) {
+          setFavouritePlaylists(JSON.parse(favouritesQuery));
+        }
       } catch (e) {
-        let emptyFavourites: PlayList[] = [];
-        console.log(JSON.stringify(emptyFavourites));
-        await AsyncStorage.setItem("favourites", JSON.stringify(emptyFavourites));
+        console.error("Couldn't fetch favourite playlists", e);
+        await AsyncStorage.setItem("favourites", JSON.stringify([]));
+        setFavouritePlaylists([]);
       }
     }
 
     getFavouritesFromDB();
   }, [])
 
-  const addFavourite = (playlist: PlayList) => {
+  const addFavourite = async (playlist: PlayList) => {
     let newList = [...favouritePlaylists, playlist];
     setFavouritePlaylists(newList);
+
+    try {
+      await AsyncStorage.setItem('favourites', JSON.stringify(newList));
+    } catch (e) {
+      console.error(e);
+    }
   };
 
-  const removeFavourite = (playlist: PlayList) => {
+  const removeFavourite = async (playlist: PlayList) => {
     let newList = favouritePlaylists.filter(item => playlist !== item);
     setFavouritePlaylists(newList);
-  }
 
-  // const updateStorage = async () => {
-  //   try {
-  //     await AsyncStorage.setItem('', JSON.stringify());
-  //   } catch (e) {
-  //     console.log(e);
-  //   }
-  // }
+    try {
+      await AsyncStorage.setItem('favourites', JSON.stringify(newList));
+    } catch (e) {
+      console.error(e);
+    }
+  }
 
   const contextValue: FavouritePlaylistProps = {
     favouritePlaylists,
