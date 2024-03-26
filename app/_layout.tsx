@@ -5,6 +5,8 @@ import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
 import 'react-native-reanimated';
 import 'react-native-gesture-handler';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import React from 'react';
 
 
 export {
@@ -47,16 +49,30 @@ export default function RootLayout() {
 function RootLayoutNav() {
 
   return (
-    <Stack>
-      <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-      <Stack.Screen name="quiz" options={{ 
-        headerTitle:'Update Mood', 
-        presentation: 'modal',
-        headerStyle: {
-          backgroundColor: '#153B44',
-        },
-        headerTintColor: '#fff',
-        }} />
-    </Stack>
+    <GestureHandlerRootView className='flex-1'>
+      <Stack>
+        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+        <Stack.Screen name="quiz" options={{ 
+          headerTitle:'Update Mood', 
+          presentation: 'modal',
+          headerStyle: {
+            backgroundColor: '#153B44',
+          },
+          headerTintColor: '#fff',
+          }} />
+        <Stack.Screen name='stackscreens/PlaylistScreen' 
+          options={({route}: any) => ({
+            title: route?.params?.playlist?.name,
+            headerTintColor: "#C6DE41",
+            headerStyle: {
+              backgroundColor: "#071C21"
+            },
+            headerBackTitle: "Back",
+            headerTitleStyle: {
+              color: '#fff'
+            }
+          })}/>
+      </Stack>
+    </GestureHandlerRootView>
   );
 }
