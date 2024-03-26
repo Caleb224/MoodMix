@@ -1,6 +1,6 @@
 type Song = {
   name: string;
-  artist: string;
+  artist: string[];
   album: string | null;
   imageURI: string;
 }
