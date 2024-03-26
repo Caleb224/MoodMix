@@ -1,3 +1,4 @@
+import React from 'react';
 import { Slider } from '@miblanchard/react-native-slider';
 import { AnimatePresence, MotiText, MotiView, ScrollView } from 'moti';
 import { useState } from 'react';
