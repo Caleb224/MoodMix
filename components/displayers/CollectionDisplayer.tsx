@@ -1,6 +1,6 @@
 import { useWindowDimensions, View } from "react-native";
 import PlaylistDisplayer from "./PlaylistDisplayer";
-import PlayList from "@/lib/types/playlist";
+import PlayList from "@/lib/types/Playlist";
 import { FlatList } from "react-native-gesture-handler";
 import React from "react";
 

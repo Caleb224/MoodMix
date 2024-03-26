@@ -1,4 +1,4 @@
-import PlayList from "@/lib/types/playlist";
+import PlayList from "@/lib/types/Playlist";
 import { useNavigation } from "expo-router";
 import { ImageBackground, Pressable, Text, View } from "react-native";
 import React from "react";

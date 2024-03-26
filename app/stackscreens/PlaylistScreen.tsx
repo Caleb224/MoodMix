@@ -1,12 +1,95 @@
 import { SafeAreaView } from "moti";
-import { Text, View } from "react-native";
+import { View } from "react-native";
 import React from "react";
+import { FlatList } from "react-native-gesture-handler";
+// import PlayList from "@/lib/types/playlist";
+import SongDisplayer from "@/components/displayers/SongDisplayer";
+import Song from "@/lib/types/Song";
 
-export default function PlayListScreen() {
+
+const test_songs: Song[] = [
+  {
+    name: "",
+    artist: "",
+    album: null,
+    imageURI: ""
+  },
+  {
+    name: "",
+    artist: "",
+    album: null,
+    imageURI: ""
+  },
+  {
+    name: "",
+    artist: "",
+    album: null,
+    imageURI: ""
+  },
+  {
+    name: "",
+    artist: "",
+    album: null,
+    imageURI: ""
+  },
+  {
+    name: "",
+    artist: "",
+    album: null,
+    imageURI: ""
+  },
+  {
+    name: "",
+    artist: "",
+    album: null,
+    imageURI: ""
+  },
+  {
+    name: "",
+    artist: "",
+    album: null,
+    imageURI: ""
+  },
+  {
+    name: "",
+    artist: "",
+    album: null,
+    imageURI: ""
+  },
+  {
+    name: "",
+    artist: "",
+    album: null,
+    imageURI: ""
+  },
+  {
+    name: "",
+    artist: "",
+    album: null,
+    imageURI: ""
+  },
+  {
+    name: "",
+    artist: "",
+    album: null,
+    imageURI: ""
+  }
+]
+
+export default function PlayListScreen({route}: any) {
+
+  // const { playlist } = route?.params;
+
   return (
-    <View className="flex-1 flex justify-center items-center bg-background">
-      <SafeAreaView>
-        <Text>Playlist Screen</Text>
+    <View className="flex-1 flex justify-start items-center bg-background py-2">
+      <SafeAreaView className="w-full">
+        <FlatList
+        data={test_songs}
+        keyExtractor={(item: Song) => item.artist + item.name}
+        renderItem={(item) => {
+          let song = item.item;
+          return <SongDisplayer song={song}/>
+        }}/>
       </SafeAreaView>
     </View>
   )

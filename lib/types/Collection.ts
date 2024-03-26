@@ -1,4 +1,4 @@
-import PlayList from "./playlist";
+import PlayList from "./Playlist";
 import GenerationParameters from "./GenerationParameters";
 
 type Collection = {

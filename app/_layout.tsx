@@ -1,4 +1,3 @@
-import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { useFonts } from 'expo-font';
 import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
@@ -7,6 +6,9 @@ import 'react-native-reanimated';
 import 'react-native-gesture-handler';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import React from 'react';
+import { FavouritePlaylistsProvider, usePlaylists } from '@/providers/FavouritePlaylistProvider';
+import { Pressable } from 'react-native';
+import { FontAwesome } from '@expo/vector-icons';
 
 
 export {
@@ -50,29 +52,41 @@ function RootLayoutNav() {
 
   return (
     <GestureHandlerRootView className='flex-1'>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="quiz" options={{ 
-          headerTitle:'Update Mood', 
-          presentation: 'modal',
-          headerStyle: {
-            backgroundColor: '#153B44',
-          },
-          headerTintColor: '#fff',
-          }} />
-        <Stack.Screen name='stackscreens/PlaylistScreen' 
-          options={({route}: any) => ({
-            title: route?.params?.playlist?.name,
-            headerTintColor: "#C6DE41",
+      <FavouritePlaylistsProvider>
+        <Stack>
+          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+          <Stack.Screen name="quiz" options={{ 
+            headerTitle:'Update Mood', 
+            presentation: 'modal',
             headerStyle: {
-              backgroundColor: "#071C21"
+              backgroundColor: '#153B44',
             },
-            headerBackTitle: "Back",
-            headerTitleStyle: {
-              color: '#fff'
-            }
-          })}/>
-      </Stack>
+            headerTintColor: '#fff',
+            }} />
+          <Stack.Screen name='stackscreens/PlaylistScreen' 
+            options={({route}: any) => ({
+              title: route?.params?.playlist?.name,
+              headerTintColor: "#C6DE41",
+              headerStyle: {
+                backgroundColor: "#153B44",
+              },
+              headerBackTitle: "Back",
+              headerTitleStyle: {
+                color: '#fff'
+              },
+              headerRight: () => {
+                let playlist = route?.params?.playlist;
+                let { favouritePlaylists, addFavourite, removeFavourite } = usePlaylists();
+                let showFavourite = (favouritePlaylists?.indexOf(playlist) > -1);
+                return (
+                  <Pressable onPress={showFavourite ? () => removeFavourite(playlist) : () => addFavourite(playlist)}>
+                    <FontAwesome name={showFavourite ? 'heart' : 'heart-o'} size={18} color="#C6DE41"/>
+                  </Pressable>
+                )
+              }
+            })}/>
+        </Stack>
+      </FavouritePlaylistsProvider>
     </GestureHandlerRootView>
   );
 }
