@@ -4,7 +4,7 @@ type PlayList = {
   uniqueKey: string;
   name: string;
   displayImageURI: string;
-  genre: string;
+  genre: string[];
   songs: Song[];
   emotion: string;
 }
