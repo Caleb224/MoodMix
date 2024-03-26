@@ -21,7 +21,9 @@ export const FavouritePlaylistsProvider = ({ children }: { children: React.React
     const getFavouritesFromDB = async () => {
       try {
         let favouritesQuery = await AsyncStorage.getItem("favourites");
+
         if (favouritesQuery !== null) {
+          console.log(favouritesQuery);
           setFavouritePlaylists(JSON.parse(favouritesQuery));
         }
       } catch (e) {
@@ -46,7 +48,7 @@ export const FavouritePlaylistsProvider = ({ children }: { children: React.React
   };
 
   const removeFavourite = async (playlist: PlayList) => {
-    let newList = favouritePlaylists.filter(item => playlist !== item);
+    let newList = favouritePlaylists.filter(item => playlist.uniqueKey !== item.uniqueKey);
     setFavouritePlaylists(newList);
 
     try {

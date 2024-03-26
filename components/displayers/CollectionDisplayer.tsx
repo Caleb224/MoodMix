@@ -6,6 +6,7 @@ import React from "react";
 
 const test_list: PlayList[] = [
   {
+    uniqueKey: 'sadfasfasf',
     name: "Land of the Living",
     displayImageURI: "https://www.jesusfreakhideout.com/news/2020/04/pics/upperroom.jpg",
     genre: "",
@@ -13,6 +14,7 @@ const test_list: PlayList[] = [
     emotion: ""
   },
   {
+    uniqueKey: 'kfhasiouvkas',
     name: "Astroworld",
     displayImageURI: "https://upload.wikimedia.org/wikipedia/en/4/4b/Travis_Scott_-_Astroworld.png",
     genre: "",
@@ -20,6 +22,7 @@ const test_list: PlayList[] = [
     emotion: ""
   },
   {
+    uniqueKey: 'f;diuasfjksaf',
     name: "Legends Never Die",
     displayImageURI: "https://wp.dailybruin.com/images/2020/07/web.ae_.juicewrld.courtesy.jpg",
     genre: "",

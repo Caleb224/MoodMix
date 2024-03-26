@@ -77,7 +77,7 @@ function RootLayoutNav() {
               headerRight: () => {
                 let playlist = route?.params?.playlist;
                 let { favouritePlaylists, addFavourite, removeFavourite } = usePlaylists();
-                let showFavourite = (favouritePlaylists?.indexOf(playlist) > -1);
+                let showFavourite = (favouritePlaylists?.some(item => item.uniqueKey === playlist.uniqueKey));
                 return (
                   <Pressable onPress={showFavourite ? () => removeFavourite(playlist) : () => addFavourite(playlist)}>
                     <FontAwesome name={showFavourite ? 'heart' : 'heart-o'} size={18} color="#C6DE41"/>

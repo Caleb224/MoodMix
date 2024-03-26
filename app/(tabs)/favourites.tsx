@@ -17,7 +17,7 @@ export default function FavouriteScreen() {
           <Text className='text-text font-bold text-xl p-5'>Your Favourites</Text>
           <FlatList
           data={favouritePlaylists}
-          keyExtractor={(item: PlayList) => item.name + item.emotion}
+          keyExtractor={(item: PlayList) => item.uniqueKey}
           renderItem={(item) => {
             let playlist = item.item;
             let showFavourite = (favouritePlaylists?.indexOf(playlist) > -1);
