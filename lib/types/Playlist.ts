@@ -7,6 +7,6 @@ type PlayList = {
   genre: string[];
   songs: Song[];
   emotion: string;
-}
+};
 
 export default PlayList;

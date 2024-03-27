@@ -1,24 +1,28 @@
-import { useFonts } from 'expo-font';
-import { Stack } from 'expo-router';
-import * as SplashScreen from 'expo-splash-screen';
-import { useEffect } from 'react';
-import 'react-native-reanimated';
-import 'react-native-gesture-handler';
-import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import React from 'react';
-import { FavouritePlaylistsProvider, usePlaylists } from '@/providers/FavouritePlaylistProvider';
-import { Pressable } from 'react-native';
-import { FontAwesome } from '@expo/vector-icons';
+import { useFonts } from "expo-font";
+import { Stack } from "expo-router";
+import * as SplashScreen from "expo-splash-screen";
+import { useEffect } from "react";
+import "react-native-reanimated";
+import "react-native-gesture-handler";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
+import React from "react";
+import {
+  FavouritePlaylistsProvider,
+  usePlaylists,
+} from "@/providers/FavouritePlaylistProvider";
+import { Pressable } from "react-native";
+import { FontAwesome } from "@expo/vector-icons";
+import { ParametersProvider } from "@/providers/ParametersProvider";
 
 
 export {
   // Catch any errors thrown by the Layout component.
   ErrorBoundary,
-} from 'expo-router';
+} from "expo-router";
 
 export const unstable_settings = {
   // Ensure that reloading on `/modal` keeps a back button present.
-  initialRouteName: '(tabs)',
+  initialRouteName: "(tabs)",
 };
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
@@ -26,7 +30,7 @@ SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
   const [loaded, error] = useFonts({
-    SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
+    SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
     ...FontAwesome.font,
   });
 
@@ -49,43 +53,62 @@ export default function RootLayout() {
 }
 
 function RootLayoutNav() {
-
   return (
-    <GestureHandlerRootView className='flex-1'>
+    <GestureHandlerRootView className="flex-1">
       <FavouritePlaylistsProvider>
-        <Stack>
-          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-          <Stack.Screen name="quiz" options={{ 
-            headerTitle:'Update Mood', 
-            presentation: 'modal',
-            headerStyle: {
-              backgroundColor: '#153B44',
-            },
-            headerTintColor: '#fff',
-            }} />
-          <Stack.Screen name='stackscreens/PlaylistScreen' 
-            options={({route}: any) => ({
-              title: route?.params?.playlist?.name,
-              headerTintColor: "#C6DE41",
-              headerStyle: {
-                backgroundColor: "#153B44",
-              },
-              headerBackTitle: "Back",
-              headerTitleStyle: {
-                color: '#fff'
-              },
-              headerRight: () => {
-                let playlist = route?.params?.playlist;
-                let { favouritePlaylists, addFavourite, removeFavourite } = usePlaylists();
-                let showFavourite = (favouritePlaylists?.some(item => item.uniqueKey === playlist.uniqueKey));
-                return (
-                  <Pressable onPress={showFavourite ? () => removeFavourite(playlist) : () => addFavourite(playlist)}>
-                    <FontAwesome name={showFavourite ? 'heart' : 'heart-o'} size={18} color="#C6DE41"/>
-                  </Pressable>
-                )
-              }
-            })}/>
-        </Stack>
+        <ParametersProvider>
+          <Stack>
+            <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+            <Stack.Screen
+              name="quiz"
+              options={{
+                headerTitle: "Update Mood",
+                presentation: "modal",
+                headerStyle: {
+                  backgroundColor: "#153B44",
+                },
+                headerTintColor: "#fff",
+              }}
+            />
+            <Stack.Screen
+              name="stackscreens/PlaylistScreen"
+              options={({ route }: any) => ({
+                title: route?.params?.playlist?.name,
+                headerTintColor: "#C6DE41",
+                headerStyle: {
+                  backgroundColor: "#153B44",
+                },
+                headerBackTitle: "Back",
+                headerTitleStyle: {
+                  color: "#fff",
+                },
+                headerRight: () => {
+                  let playlist = route?.params?.playlist;
+                  let { favouritePlaylists, addFavourite, removeFavourite } =
+                    usePlaylists();
+                  let showFavourite = favouritePlaylists?.some(
+                    (item) => item.uniqueKey === playlist.uniqueKey,
+                  );
+                  return (
+                    <Pressable
+                      onPress={
+                        showFavourite
+                          ? () => removeFavourite(playlist)
+                          : () => addFavourite(playlist)
+                      }
+                    >
+                      <FontAwesome
+                        name={showFavourite ? "heart" : "heart-o"}
+                        size={18}
+                        color="#C6DE41"
+                      />
+                    </Pressable>
+                  );
+                },
+              })}
+            />
+          </Stack>
+        </ParametersProvider>
       </FavouritePlaylistsProvider>
     </GestureHandlerRootView>
   );

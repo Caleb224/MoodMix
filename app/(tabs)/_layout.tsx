@@ -1,34 +1,34 @@
-import React from 'react';
-import FontAwesome from '@expo/vector-icons/FontAwesome';
-import { Tabs } from 'expo-router';
+import React from "react";
+import FontAwesome from "@expo/vector-icons/FontAwesome";
+import { Tabs } from "expo-router";
 
-import { useClientOnlyValue } from '@/components/useClientOnlyValue';
+import { useClientOnlyValue } from "@/components/useClientOnlyValue";
 
 // You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
 function TabBarIcon(props: {
-  name: React.ComponentProps<typeof FontAwesome>['name'];
+  name: React.ComponentProps<typeof FontAwesome>["name"];
   color: string;
 }) {
   return <FontAwesome size={28} style={{ marginBottom: -3 }} {...props} />;
 }
 
 export default function TabLayout() {
-
   return (
     <Tabs
       screenOptions={{
         headerShown: useClientOnlyValue(false, false),
         tabBarStyle: {
           backgroundColor: "#153B44",
-          paddingTop: 5
-        }
-      }}>
+          paddingTop: 5,
+        },
+      }}
+    >
       <Tabs.Screen
         name="index"
         options={{
           tabBarActiveTintColor: "#C6DE41",
           tabBarInactiveTintColor: "#ddd",
-          title: 'Home',
+          title: "Home",
           tabBarIcon: ({ color }) => <TabBarIcon name="home" color={color} />,
         }}
       />
@@ -37,7 +37,7 @@ export default function TabLayout() {
         options={{
           tabBarActiveTintColor: "#C6DE41",
           tabBarInactiveTintColor: "#ddd",
-          title: 'Favourites',
+          title: "Favourites",
           tabBarIcon: ({ color }) => <TabBarIcon name="heart" color={color} />,
         }}
       />
@@ -46,7 +46,7 @@ export default function TabLayout() {
         options={{
           tabBarActiveTintColor: "#C6DE41",
           tabBarInactiveTintColor: "#ddd",
-          title: 'Search',
+          title: "Search",
           tabBarIcon: ({ color }) => <TabBarIcon name="search" color={color} />,
         }}
       />
@@ -55,8 +55,10 @@ export default function TabLayout() {
         options={{
           tabBarActiveTintColor: "#C6DE41",
           tabBarInactiveTintColor: "#ddd",
-          title: 'Profile',
-          tabBarIcon: ({ color }) => <TabBarIcon name="user-circle" color={color} />,
+          title: "Profile",
+          tabBarIcon: ({ color }) => (
+            <TabBarIcon name="user-circle" color={color} />
+          ),
         }}
       />
     </Tabs>

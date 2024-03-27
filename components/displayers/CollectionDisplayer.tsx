@@ -2,55 +2,89 @@ import { useWindowDimensions, View } from "react-native";
 import PlaylistDisplayer from "./PlaylistDisplayer";
 import PlayList from "@/lib/types/Playlist";
 import { FlatList } from "react-native-gesture-handler";
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { Skeleton } from "moti/skeleton";
+import Collection from "@/lib/types/Collection";
+import { LinearGradient } from "expo-linear-gradient";
+import { getRecommendedTracks } from "@/services/spotifyApi";
+import { getToken } from "@/services/spotifyAuth";
+import { useParameters } from "@/providers/ParametersProvider";
+import Playlist from "@/lib/types/Playlist";
+import { Buffer } from "buffer";
 
 const test_list: PlayList[] = [
   {
-    uniqueKey: 'sadfasfasf',
+    uniqueKey: "sadfasfasf",
     name: "Land of the Living",
-    displayImageURI: "https://www.jesusfreakhideout.com/news/2020/04/pics/upperroom.jpg",
-    genre: "",
+    displayImageURI:
+      "https://www.jesusfreakhideout.com/news/2020/04/pics/upperroom.jpg",
+    genre: [],
     songs: [],
-    emotion: ""
+    emotion: "",
   },
   {
-    uniqueKey: 'kfhasiouvkas',
+    uniqueKey: "kfhasiouvkas",
     name: "Astroworld",
-    displayImageURI: "https://upload.wikimedia.org/wikipedia/en/4/4b/Travis_Scott_-_Astroworld.png",
-    genre: "",
+    displayImageURI:
+      "https://upload.wikimedia.org/wikipedia/en/4/4b/Travis_Scott_-_Astroworld.png",
+    genre: [],
     songs: [],
-    emotion: ""
+    emotion: "",
   },
   {
-    uniqueKey: 'f;diuasfjksaf',
+    uniqueKey: "f;diuasfjksaf",
     name: "Legends Never Die",
-    displayImageURI: "https://wp.dailybruin.com/images/2020/07/web.ae_.juicewrld.courtesy.jpg",
-    genre: "",
+    displayImageURI:
+      "https://wp.dailybruin.com/images/2020/07/web.ae_.juicewrld.courtesy.jpg",
+    genre: [],
     songs: [],
-    emotion: ""
-  }
-]
+    emotion: "",
+  },
+];
 
 export default function CollectionDisplayer() {
+  const [loading, setLoading] = useState(true);
+  const [collection, setCollection] = useState<Playlist[] | null>(null);
 
-  const {width} = useWindowDimensions();
+  const { width } = useWindowDimensions();
+  const { emotion, mood, tempo, energy } = useParameters();
+
+  useEffect(() => {
+    const getCollection = async () => {
+      try {
+        let tracks = await getToken().then((response) => {
+          return getRecommendedTracks(response.access_token, emotion.toLowerCase(), mood[0], tempo[0], energy[0]);
+        });
+        console.log("TRACKS:" + tracks)
+        setCollection([tracks]);
+        setLoading(false);
+      } catch (e) {
+        console.log(e);
+      }
+    };
+
+    getCollection();
+  }, [emotion]);
 
   return (
     <View className="w-full">
-      <FlatList
-      data={test_list}
-      keyExtractor={(item: PlayList) => item.emotion + item.name}
-      renderItem={(item) => {
-        let playlist = item.item;
-        return (
-          <View style={{width: width * 0.9}}>
-            <PlaylistDisplayer playlist={playlist}/>
-          </View>
-        )
-      }}
-      horizontal
-      style={{width: '100%'}}
-      />
-    </View> 
-  )
+      <Skeleton show={loading} height={200} width={'100%'} radius={16}>
+        {!!collection && (
+          <FlatList
+            data={collection}
+            keyExtractor={(item: PlayList) => item.uniqueKey}
+            renderItem={(item) => {
+              let playlist = item.item;
+              return (
+                <View style={{ width: width * 0.9 }}>
+                  <PlaylistDisplayer playlist={playlist} />
+                </View>
+              );
+            }}
+            style={{ width: "100%" }}
+          />
+        )}
+      </Skeleton>
+    </View>
+  );
 }

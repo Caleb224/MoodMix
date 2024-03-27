@@ -6,6 +6,6 @@ type Collection = {
   genres: string[];
   genParams: GenerationParameters;
   playlists: PlayList[];
-}
+};
 
 export default Collection;

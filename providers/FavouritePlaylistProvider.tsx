@@ -11,11 +11,19 @@ interface FavouritePlaylistProps {
   removeFavourite: (playlist: PlayList) => void;
 }
 
-const FavouritePlaylistsContext = createContext<FavouritePlaylistProps | undefined>(undefined);
+const FavouritePlaylistsContext = createContext<
+  FavouritePlaylistProps | undefined
+>(undefined);
 
 // Create a provider component
-export const FavouritePlaylistsProvider = ({ children }: { children: React.ReactNode }) => {
-  const [favouritePlaylists, setFavouritePlaylists] = useState<PlayList[] | null>(null);
+export const FavouritePlaylistsProvider = ({
+  children,
+}: {
+  children: React.ReactNode;
+}) => {
+  const [favouritePlaylists, setFavouritePlaylists] = useState<
+    PlayList[] | null
+  >(null);
 
   useEffect(() => {
     const getFavouritesFromDB = async () => {
@@ -31,37 +39,39 @@ export const FavouritePlaylistsProvider = ({ children }: { children: React.React
         await AsyncStorage.setItem("favourites", JSON.stringify([]));
         setFavouritePlaylists([]);
       }
-    }
+    };
 
     getFavouritesFromDB();
-  }, [])
+  }, []);
 
   const addFavourite = async (playlist: PlayList) => {
     let newList = [...favouritePlaylists, playlist];
     setFavouritePlaylists(newList);
 
     try {
-      await AsyncStorage.setItem('favourites', JSON.stringify(newList));
+      await AsyncStorage.setItem("favourites", JSON.stringify(newList));
     } catch (e) {
       console.error(e);
     }
   };
 
   const removeFavourite = async (playlist: PlayList) => {
-    let newList = favouritePlaylists.filter(item => playlist.uniqueKey !== item.uniqueKey);
+    let newList = favouritePlaylists.filter(
+      (item) => playlist.uniqueKey !== item.uniqueKey,
+    );
     setFavouritePlaylists(newList);
 
     try {
-      await AsyncStorage.setItem('favourites', JSON.stringify(newList));
+      await AsyncStorage.setItem("favourites", JSON.stringify(newList));
     } catch (e) {
       console.error(e);
     }
-  }
+  };
 
   const contextValue: FavouritePlaylistProps = {
     favouritePlaylists,
     addFavourite,
-    removeFavourite
+    removeFavourite,
   };
 
   return (
@@ -75,7 +85,9 @@ export const FavouritePlaylistsProvider = ({ children }: { children: React.React
 export const usePlaylists = (): FavouritePlaylistProps => {
   const context = useContext(FavouritePlaylistsContext);
   if (!context) {
-    throw new Error("usePlaylists must be used within a FavouritePlaylistProvider");
+    throw new Error(
+      "usePlaylists must be used within a FavouritePlaylistProvider",
+    );
   }
   return context;
 };

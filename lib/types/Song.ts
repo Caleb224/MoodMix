@@ -3,6 +3,6 @@ type Song = {
   artist: string[];
   album: string | null;
   imageURI: string;
-}
+};
 
 export default Song;
