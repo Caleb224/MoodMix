@@ -7,10 +7,12 @@ getToken().then(response => {
     })
 });
 
-getToken().then(response => {
-    SpotifyApi.getRecommendedTracks(response.access_token, ['classical', 'country']).then((tracks) => {
-        console.log(tracks);
-    })
+getToken().then((response) => {
+    SpotifyApi.getRecommendedTracks(response.access_token, "awe", 0.2, 0.3, 0.9).then(
+        (playlist) => {
+            console.log(playlist);
+        },
+    );
 });
 
 getToken().then(response => {

@@ -49,17 +49,22 @@ export default function CollectionDisplayer() {
   const { width } = useWindowDimensions();
   const { emotion, mood, tempo, energy } = useParameters();
 
+  console.log("inside collect component");
+
   useEffect(() => {
+    console.log("in useEffect");
     const getCollection = async () => {
       try {
+        console.log("try getCollection");
         let tracks = await getToken().then((response) => {
+          console.log(response);
           return getRecommendedTracks(response.access_token, emotion.toLowerCase(), mood[0], tempo[0], energy[0]);
         });
-        console.log("TRACKS:" + tracks)
+        console.log("tracks: " + tracks)
         setCollection([tracks]);
         setLoading(false);
       } catch (e) {
-        console.log(e);
+        console.log("error: ", e);
       }
     };
 
@@ -69,8 +74,9 @@ export default function CollectionDisplayer() {
   return (
     <View className="w-full">
       <Skeleton show={loading} height={200} width={'100%'} radius={16}>
-        {!!collection && (
+        {(
           <FlatList
+            scrollEnabled={false} // two components were scrollable, set this to false so ScrollView is only scrollable
             data={collection}
             keyExtractor={(item: PlayList) => item.uniqueKey}
             renderItem={(item) => {

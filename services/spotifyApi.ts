@@ -51,7 +51,7 @@ export async function getRecommendedTracks(
   energy: number,
 ): Promise<PlayList> {
   const genres = moodGenreMap[emotion];
-  console.log(genres);
+  console.log("genres: " + genres);
 
   const recommendationsUrl =
     "https://api.spotify.com/v1/recommendations?" +
@@ -69,7 +69,6 @@ export async function getRecommendedTracks(
   });
 
   const trackInfo = await response.json();
-  console.log(trackInfo);
 
   const songs: Song[] = [];
 
@@ -120,12 +119,3 @@ export async function getTrackInfo(accessToken: string, trackId: string) {
 
   return await response.json();
 }
-
-// example usage
-getToken().then((response) => {
-  getRecommendedTracks(response.access_token, "awe", 0.2, 0.3, 0.9).then(
-    (tracks) => {
-      console.log(tracks);
-    },
-  );
-});

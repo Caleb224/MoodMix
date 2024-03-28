@@ -11,6 +11,7 @@ import React, { useEffect } from "react";
 
 export default function HomeScreen() {
   const { navigate } = useNavigation();
+  console.log("in index");
 
   return (
     <View className="flex flex-1 items-center justify-center bg-background">
