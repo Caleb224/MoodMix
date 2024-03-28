@@ -13,6 +13,7 @@ import {
 import { Pressable } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
 import { ParametersProvider } from "@/providers/ParametersProvider";
+import { PlaylistScreenDataProvider } from "@/providers/PlaylistScreenDataProvider";
 
 
 export {
@@ -56,59 +57,25 @@ function RootLayoutNav() {
   return (
     <GestureHandlerRootView className="flex-1">
       <FavouritePlaylistsProvider>
-        <ParametersProvider>
-          <Stack>
-            <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-            <Stack.Screen
-              name="quiz"
-              options={{
-                headerTitle: "Update Mood",
-                presentation: "modal",
-                headerStyle: {
-                  backgroundColor: "#153B44",
-                },
-                headerTintColor: "#fff",
-              }}
-            />
-            <Stack.Screen
-              name="stackscreens/PlaylistScreen"
-              options={({ route }: any) => ({
-                title: route?.params?.playlist?.name,
-                headerTintColor: "#C6DE41",
-                headerStyle: {
-                  backgroundColor: "#153B44",
-                },
-                headerBackTitle: "Back",
-                headerTitleStyle: {
-                  color: "#fff",
-                },
-                headerRight: () => {
-                  let playlist = route?.params?.playlist;
-                  let { favouritePlaylists, addFavourite, removeFavourite } =
-                    usePlaylists();
-                  let showFavourite = favouritePlaylists?.some(
-                    (item) => item.uniqueKey === playlist.uniqueKey,
-                  );
-                  return (
-                    <Pressable
-                      onPress={
-                        showFavourite
-                          ? () => removeFavourite(playlist)
-                          : () => addFavourite(playlist)
-                      }
-                    >
-                      <FontAwesome
-                        name={showFavourite ? "heart" : "heart-o"}
-                        size={18}
-                        color="#C6DE41"
-                      />
-                    </Pressable>
-                  );
-                },
-              })}
-            />
-          </Stack>
-        </ParametersProvider>
+        <PlaylistScreenDataProvider>
+          <ParametersProvider>
+            <Stack>
+              <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+              <Stack.Screen
+                name="quiz"
+                options={{
+                  headerTitle: "Update Mood",
+                  presentation: "modal",
+                  headerStyle: {
+                    backgroundColor: "#153B44",
+                  },
+                  headerTintColor: "#fff",
+                }}
+              />
+              <Stack.Screen name="stackscreens/PlaylistScreen"/>
+            </Stack>
+          </ParametersProvider>
+        </PlaylistScreenDataProvider>
       </FavouritePlaylistsProvider>
     </GestureHandlerRootView>
   );

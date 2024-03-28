@@ -8,7 +8,7 @@ export default function SongDisplayer({ song }: { song: Song }) {
     <View className="flex max-w-full flex-row items-start border-b border-secondary py-2">
       <View className="mx-5 h-20 w-20 rounded-xl">
         <ImageBackground
-          source={{ uri: song?.imageURI | "" }}
+          source={{ uri: song?.imageURI }}
           className="h-full w-full rounded-xl bg-primary"
           imageStyle={{ borderRadius: 12 }}
         />

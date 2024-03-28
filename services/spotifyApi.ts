@@ -1,6 +1,7 @@
 import { getToken } from "./spotifyAuth";
 import Song from "../lib/types/Song";
 import PlayList from "../lib/types/Playlist";
+import axios from "axios";
 
 const moodGenreMap: { [key: string]: string[] } = {
   euphoria: ["dance", "happy", "pop", "progressive-house", "trance"],
@@ -51,7 +52,6 @@ export async function getRecommendedTracks(
   energy: number,
 ): Promise<PlayList> {
   const genres = moodGenreMap[emotion];
-  console.log(genres);
 
   const recommendationsUrl =
     "https://api.spotify.com/v1/recommendations?" +
@@ -63,13 +63,13 @@ export async function getRecommendedTracks(
       target_valence: mood.toString(),
     });
 
-  const response = await fetch(recommendationsUrl, {
-    method: "GET",
-    headers: { Authorization: "Bearer " + accessToken },
+  const axiosResponse = await axios.get(recommendationsUrl, {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
   });
 
-  const trackInfo = await response.json();
-  console.log(trackInfo);
+  const trackInfo = await axiosResponse.data;
 
   const songs: Song[] = [];
 

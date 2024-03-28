@@ -10,37 +10,7 @@ import { getRecommendedTracks } from "@/services/spotifyApi";
 import { getToken } from "@/services/spotifyAuth";
 import { useParameters } from "@/providers/ParametersProvider";
 import Playlist from "@/lib/types/Playlist";
-import { Buffer } from "buffer";
 
-const test_list: PlayList[] = [
-  {
-    uniqueKey: "sadfasfasf",
-    name: "Land of the Living",
-    displayImageURI:
-      "https://www.jesusfreakhideout.com/news/2020/04/pics/upperroom.jpg",
-    genre: [],
-    songs: [],
-    emotion: "",
-  },
-  {
-    uniqueKey: "kfhasiouvkas",
-    name: "Astroworld",
-    displayImageURI:
-      "https://upload.wikimedia.org/wikipedia/en/4/4b/Travis_Scott_-_Astroworld.png",
-    genre: [],
-    songs: [],
-    emotion: "",
-  },
-  {
-    uniqueKey: "f;diuasfjksaf",
-    name: "Legends Never Die",
-    displayImageURI:
-      "https://wp.dailybruin.com/images/2020/07/web.ae_.juicewrld.courtesy.jpg",
-    genre: [],
-    songs: [],
-    emotion: "",
-  },
-];
 
 export default function CollectionDisplayer() {
   const [loading, setLoading] = useState(true);
@@ -52,10 +22,8 @@ export default function CollectionDisplayer() {
   useEffect(() => {
     const getCollection = async () => {
       try {
-        let tracks = await getToken().then((response) => {
-          return getRecommendedTracks(response.access_token, emotion.toLowerCase(), mood[0], tempo[0], energy[0]);
-        });
-        console.log("TRACKS:" + tracks)
+        let access_token = await getToken();
+        let tracks = await getRecommendedTracks(access_token, emotion.toLowerCase(), mood[0], tempo[0], energy[0]);
         setCollection([tracks]);
         setLoading(false);
       } catch (e) {
@@ -64,7 +32,7 @@ export default function CollectionDisplayer() {
     };
 
     getCollection();
-  }, [emotion]);
+  }, [emotion, mood, tempo, energy]);
 
   return (
     <View className="w-full">
@@ -81,6 +49,7 @@ export default function CollectionDisplayer() {
                 </View>
               );
             }}
+            horizontal
             style={{ width: "100%" }}
           />
         )}
